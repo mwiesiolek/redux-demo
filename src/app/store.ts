@@ -27,10 +27,10 @@ export function rootReducer(state: IAppState, action): IAppState {
     case INCREMENT:
       //return { counter: state.counter + 1, prop1: state.prop1, prop2: state.prop2 };
       // return Object.assign({}, state, { counter: state.counter + 1 });
-      return tassign(state, { counter: state.counter + 1 });
+      return tassign(state, {counter: state.counter + 1});
     // return state.set('counter', state.get('counter') + 1);
     case ADD_NEW_ITEM:
-      return addNewItem(state);
+      return addNewItem(state, action.payload);
     case DELETE_ALL:
       return deleteAll(state);
     case READ_ALL:
@@ -40,8 +40,8 @@ export function rootReducer(state: IAppState, action): IAppState {
   return state;
 }
 
-function addNewItem(state: IAppState) {
-  return state;
+function addNewItem(state: IAppState, payload: string) {
+  return tassign(state, {todo: state.todo.concat({content: payload, created: new Date()})});
 }
 
 function deleteAll(state: IAppState) {
