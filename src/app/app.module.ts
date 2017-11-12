@@ -8,14 +8,14 @@ import {TodoListComponent} from "./todo-list/todo-list.component";
 @NgModule({
   declarations: [
     AppComponent,
-    TodoListComponent
+    TodoListComponent,
   ],
   imports: [
     BrowserModule,
     NgReduxModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule {
   //NgRedux<IAppState>

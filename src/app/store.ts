@@ -1,11 +1,12 @@
-import {INCREMENT} from "./actions";
+import {INCREMENT, ADD_NEW_ITEM, DELETE_ALL, READ_ALL} from "./actions";
 import {tassign} from "tassign";
 
 export const INITIAL_STATE = {
   counter: 0,
   messaging: {
     newMessages: 5
-  }
+  },
+  todo: []
 };
 
 export interface IAppState {
@@ -13,6 +14,12 @@ export interface IAppState {
   messaging?: {
     newMessages: number;
   };
+  todo: ITodoItem[];
+}
+
+export interface ITodoItem {
+  content: string;
+  created: Date;
 }
 
 export function rootReducer(state: IAppState, action): IAppState {
@@ -20,9 +27,27 @@ export function rootReducer(state: IAppState, action): IAppState {
     case INCREMENT:
       //return { counter: state.counter + 1, prop1: state.prop1, prop2: state.prop2 };
       // return Object.assign({}, state, { counter: state.counter + 1 });
-      return tassign(state, {counter: state.counter + 1});
+      return tassign(state, { counter: state.counter + 1 });
     // return state.set('counter', state.get('counter') + 1);
+    case ADD_NEW_ITEM:
+      return addNewItem(state);
+    case DELETE_ALL:
+      return deleteAll(state);
+    case READ_ALL:
+      return readAll(state);
   }
 
+  return state;
+}
+
+function addNewItem(state: IAppState) {
+  return state;
+}
+
+function deleteAll(state: IAppState) {
+  return state;
+}
+
+function readAll(state: IAppState) {
   return state;
 }
