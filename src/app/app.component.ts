@@ -9,7 +9,7 @@ import {INCREMENT} from "./actions";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'Counter';
   @select('counter') count: number;
   // messaging.newMessages
   @select(['messaging', 'newMessages']) newMessages;

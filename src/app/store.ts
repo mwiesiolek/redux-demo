@@ -1,4 +1,4 @@
-import {INCREMENT, ADD_NEW_ITEM, DELETE_ALL} from "./actions";
+import {INCREMENT, ADD_NEW_ITEM, DELETE_ALL, REMOVE_ITEM} from "./actions";
 import {tassign} from "tassign";
 
 export const INITIAL_STATE = {
@@ -6,7 +6,8 @@ export const INITIAL_STATE = {
   messaging: {
     newMessages: 5
   },
-  todo: []
+  todo: [],
+  idGenerator: 1
 };
 
 export interface IAppState {
@@ -15,9 +16,11 @@ export interface IAppState {
     newMessages: number;
   };
   todo: ITodoItem[];
+  idGenerator: number;
 }
 
 export interface ITodoItem {
+  id: number;
   content: string;
   created: Date;
 }
@@ -33,15 +36,53 @@ export function rootReducer(state: IAppState, action): IAppState {
       return addNewItem(state, action.payload);
     case DELETE_ALL:
       return deleteAll(state);
+    case REMOVE_ITEM:
+      return removeItem(state, action.payload);
   }
 
   return state;
 }
 
+function removeItem(state, payload: ITodoItem) {
+  let item = state.todo.find(i => i.id == payload.id);
+  let index = state.todo.indexOf(item);
+
+  let beforeItems = state.todo.slice(0, index);
+  let afterItems = state.todo.slice(index + 1);
+
+  let newArray = [...beforeItems, ...afterItems];
+
+  return tassign(state, {
+    todo: newArray
+  });
+}
+
+/*function updateItem(state, payload: ITodoItem) {
+  let item = state.todo.find(i => i.id == payload.id);
+  let index = state.todo.indexOf(item);
+
+  let beforeItems = state.todo.slice(0, index);
+  let afterItems = state.todo.slice(index + 1);
+
+  let newArray = [...beforeItems, payload, ...afterItems];
+
+  return tassign(state, {
+    todo: newArray
+  });
+}*/
+
 function addNewItem(state: IAppState, payload: string) {
-  return tassign(state, {todo: state.todo.concat({content: payload, created: new Date()})});
+
+  return tassign(state, {
+    idGenerator: state.idGenerator + 1,
+    todo: state.todo.concat({
+      id: state.idGenerator,
+      content: payload,
+      created: new Date()
+    })
+  });
 }
 
 function deleteAll(state: IAppState) {
-  return state;
+  return tassign(state, { todo: [] });
 }

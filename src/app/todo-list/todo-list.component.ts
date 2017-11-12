@@ -11,19 +11,22 @@ import {ADD_NEW_ITEM, DELETE_ALL, REMOVE_ITEM} from "../actions";
 export class TodoListComponent {
   @select('todo') todoList: ITodoItem[];
   @select(s => s.todo.length) count: number;
-  lastUpdate: any;
+  lastUpdate: Date;
 
   constructor(private ngRedux: NgRedux<IAppState>) { }
 
   addNewItem(item) {
+    this.lastUpdate = new Date();
     this.ngRedux.dispatch({type: ADD_NEW_ITEM, payload: item.value});
   }
 
   removeItem(item) {
+    this.lastUpdate = new Date();
     this.ngRedux.dispatch({type: REMOVE_ITEM, payload: item});
   }
 
   deleteAll() {
+    this.lastUpdate = new Date();
     this.ngRedux.dispatch({type: DELETE_ALL});
   }
 }
