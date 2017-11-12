@@ -15,8 +15,8 @@
   </div>
   <div>
     <h1>Dashboard</h1>
-    <p>Last Update: </p>
-    <p>Total items: </p>
+    <p>Last Update: {{ lastUpdate | async }}</p>
+    <p>Total items: {{ count | async }}</p>
     <button (click)="deleteAll()">Delete All</button>
   </div>
 </div>

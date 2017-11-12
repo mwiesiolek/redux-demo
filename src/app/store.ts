@@ -1,4 +1,4 @@
-import {INCREMENT, ADD_NEW_ITEM, DELETE_ALL, READ_ALL} from "./actions";
+import {INCREMENT, ADD_NEW_ITEM, DELETE_ALL} from "./actions";
 import {tassign} from "tassign";
 
 export const INITIAL_STATE = {
@@ -33,8 +33,6 @@ export function rootReducer(state: IAppState, action): IAppState {
       return addNewItem(state, action.payload);
     case DELETE_ALL:
       return deleteAll(state);
-    case READ_ALL:
-      return readAll(state);
   }
 
   return state;
@@ -45,9 +43,5 @@ function addNewItem(state: IAppState, payload: string) {
 }
 
 function deleteAll(state: IAppState) {
-  return state;
-}
-
-function readAll(state: IAppState) {
   return state;
 }
