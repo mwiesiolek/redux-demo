@@ -1,5 +1,6 @@
 
 import {INCREMENT} from "./actions";
+import {tassign} from "tassign";
 
 export const INITIAL_STATE = {
   counter: 0,
@@ -18,7 +19,9 @@ export interface IAppState {
 export function rootReducer(state: IAppState, action): IAppState {
   switch (action.type) {
     case INCREMENT:
-      return { counter: state.counter + 1 };
+      //return { counter: state.counter + 1, prop1: state.prop1, prop2: state.prop2 };
+      // return Object.assign({}, state, { counter: state.counter + 1 });
+        return tassign(state, { counter: state.counter + 1});
   }
 
   return state;
