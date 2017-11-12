@@ -11,7 +11,7 @@ import {Map} from "immutable";
 })
 export class AppComponent {
   title = 'app';
-  @select(s => s.get('counter')) count: number;
+  @select('counter') count: number;
   // messaging.newMessages
   @select(['messaging', 'newMessages']) newMessages;
   @select((s: IAppState) => s.messaging.newMessages) newMessagesCount;
